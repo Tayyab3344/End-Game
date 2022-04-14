@@ -74,19 +74,15 @@ function validateForm() {
 </script>
 </head>
 <body>
-<form name="contactForm" onsubmit="return alert('Done')" action="http://127.0.0.1:5501/test.html" method="post">
+<form name="contactForm" onsubmit="login"  method="post">
     <h2 >Register</h2>
     <div class="row">
-        <label>First Name</label>
-        <input type="text" name="firstname" placeholder="Ali" maxlength="10" required>
-    </div>
-    <div class="row">
-        <label>Last Name</label>
-        <input type="text" name="lastname" placeholder="Ahmed" maxlength="15" >
+        <label>User Name</label>
+        <input type="text" id="name" name="name" placeholder="Ali" maxlength="10" required>
     </div>
     <div class="row">
         <label>Mobile Number</label>
-        <input type="text" name="mobile" placeholder="0000-0000000" maxlength="12" required>
+        <input type="text" id="mobilenumber" name="mobile" placeholder="0000-0000000" maxlength="12" required>
     </div>
     <div class="row">
         <label>Email address</label>
@@ -94,20 +90,14 @@ function validateForm() {
     </div>
     <div class="row">
         <label>Password</label>
-        <input type="password"id="password" name="password" placeholder="abcd@123" maxlength="20" required>
+        <input type="password" id="password" name="password" placeholder="abcd@123" maxlength="20" required>
     </div>
     <div class="row">
-        <label>Confirm Password</label>
-        <input type="password" name="password1" placeholder="abcd@123" maxlength="20" required>
-    </div>
-    <div class="row">
-        <input type="submit" value="Submit">
+        <input type="submit" onclick="login" value="Submit">
     </div>
     <div class = "row">
         <p >Already have account?</p>
-        <a href="login">
-        
-        </a>     
+        <a href="login"></a>     
     </div>
 </form>
 </body>
