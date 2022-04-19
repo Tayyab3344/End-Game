@@ -1,0 +1,102 @@
+<html>
+<head>
+    <script src="server.js"></script>
+
+    <style>
+        body {
+    font-size: 16px;
+    background: #463f3f;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+form {
+    width: 300px;
+    background: rgb(216, 197, 197);
+    padding: 15px 40px 40px;
+    border: 1px solid #ccc;
+    margin: 50px auto 0;
+    border-radius: 5px;
+}
+label {
+    display: block;
+    margin-bottom: 5px
+}
+label i {
+    color: rgb(233, 48, 48);
+    font-size: 90%;
+}
+input, select {
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+.row {
+    padding-bottom: 10px;
+}
+.form-inline label, .form-inline input {
+    display: inline-block;
+    width: auto;
+    padding-right: 15px;
+}
+
+input[type="submit"] {
+    font-size: 110%;
+    font-weight: 100;
+    background: #006dcc;
+    border-color: #016BC1;
+    box-shadow: 0 3px 0 #0165b6;
+    color: #fff;
+    margin-top: 10px;
+    cursor: pointer;
+}
+ 
+    </style>
+<script>
+
+function validateForm() {
+    var name = document.contactForm.name.value;
+    var email = document.contactForm.email.value;
+    var mobile = document.contactForm.mobile.value;
+    var country = document.contactForm.country.value;
+    var gender = document.contactForm.gender.value;
+    var Courses = [];
+    var checkboxes = document.getElementsByName("course");
+    for(var i=0; i < checkboxes.length; i++) {
+        if(checkboxes[i].checked) {
+            Courses.push(checkboxes[i].value);
+        }
+    }
+    
+};
+</script>
+</head>
+<body>
+<form name="contactForm" href ="Dashboard.html" action="Dashboard.html" method="get">
+    <h2 >Login</h2>
+    <div class="row">
+        <label>Email address</label>
+        <input type="email" name="email" placeholder="abc@gmail.com" maxlength="40" required>
+    </div>
+    <div class="row">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="abcd@123" maxlength="20" required>
+    </div>
+    <div class = "row">
+        <a href="register">
+        <p >Don't have account?</p>
+        </a>     
+    </div>
+    <div class="row">
+        <input type="submit" value="Login" onclick="validate()">
+    </div>
+    
+    
+</form>
+</body>
+</html>
