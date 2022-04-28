@@ -55,23 +55,6 @@ input[type="submit"] {
 }
  
     </style>
-<script>
-
-function validateForm() {
-    var name = document.contactForm.name.value;
-    var email = document.contactForm.email.value;
-    var mobile = document.contactForm.mobile.value;
-    var country = document.contactForm.country.value;
-    var gender = document.contactForm.gender.value;
-    var Courses = [];
-    var checkboxes = document.getElementsByName("course");
-    for(var i=0; i < checkboxes.length; i++) {
-        if(checkboxes[i].checked) {
-            Courses.push(checkboxes[i].value);
-        }
-    }
-};
-</script>
 </head>
 <body>
 <form name="contactForm" onsubmit="login"  method="post">
@@ -81,12 +64,8 @@ function validateForm() {
         <input type="text" id="name" name="name" placeholder="Ali" maxlength="10" required>
     </div>
     <div class="row">
-        <label>Mobile Number</label>
-        <input type="text" id="mobilenumber" name="mobile" placeholder="0000-0000000" maxlength="12" required>
-    </div>
-    <div class="row">
         <label>Email address</label>
-        <input type="email" id ="email" name="email" placeholder="abc@gmail.com" maxlength="40" required>
+        <input type="email" id ="Email" name="email" placeholder="abc@gmail.com" maxlength="40" required>
     </div>
     <div class="row">
         <label>Password</label>
@@ -97,7 +76,7 @@ function validateForm() {
     </div>
     <div class = "row">
         <p >Already have account?</p>
-        <a href="login"></a>     
+        <a href="login">Login</a>     
     </div>
 </form>
 </body>
