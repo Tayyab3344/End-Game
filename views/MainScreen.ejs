@@ -31,6 +31,26 @@ http://www.tooplate.com/view/2099-scenic
 <link rel="stylesheet" href="views/css/tooplate-style.css">
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
+<!-- Chat BOx code-->
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+     (function(){
+     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+     s1.async=true;
+     s1.src='https://embed.tawk.to/627cf15eb0d10b6f3e71dfa4/1g2s0tn6j';
+     s1.charset='UTF-8';
+     s1.setAttribute('crossorigin','*');
+     s0.parentNode.insertBefore(s1,s0);
+     })();
+     </script>
+     <!--End of Tawk.to Script-->
+
+<!--Recaptura-->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
 </head>
 <body>
 
@@ -46,7 +66,7 @@ http://www.tooplate.com/view/2099-scenic
                     <span class="icon icon-bar"></span>
                </button>
                <!-- lOGO -->
-               <a href="index.html" class="navbar-brand"><img src="/views/images/TB.png" width="100px" height="100px"></a>
+               <a href="views/MainScreen.ejs" class="navbar-brand"><img src="views/images/TB.png" width="100px" height="100px"></a>
           </div>
 
           <!-- MENU LINKS -->
@@ -57,9 +77,9 @@ http://www.tooplate.com/view/2099-scenic
                     <li><a href="#about" class="smoothScroll">Write Blogs</a></li>
                     <li><a href="#team" class="smoothScroll">About Us</a></li>  
                     <li><a href="#contact" class="smoothScroll">Contact Us</a></li>
+                    <li><a href="/views/login.ejs" class="smoothScroll">Login Now</a></li>
                </ul>
           </div>
-
      </div>
 </div>
 
@@ -194,10 +214,14 @@ http://www.tooplate.com/view/2099-scenic
 
                          <div class="col-md-12 col-sm-12">
                               <input type="email" class="form-control" id="cf-email" name="cf-email" placeholder="E-Mail">
-                              <input type="text" class="form-control" id="cf-subject" name="subject" placeholder="Subject for Blog">
+                              <input type="text" class="form-control" id="cf-subject" name="subject" placeholder="Subject for Blog" required>
                               <textarea class="form-control" rows="5" id="cf-message" name="cf-message" placeholder="Write Your Blog Here"></textarea>
+                              <input type = "file" name="p_image" accept ="image/png, image/jpg, image/jpeg" class = "form-control" required>
                          </div>
 
+                         <div class = "g-recaptcha" data-sitekey ="6Ld8euMfAAAAAEPXBTbjKgL4dbx3pgznOPzvhA99">
+
+                         </div>
                          <div class="col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4">
                               <div class="section-btn">
                                    <button type="submit" class="form-control" id="cf-submit" name="submit"><span data-hover="Publish Blog">Publish Blog</span></button>
@@ -292,7 +316,7 @@ http://www.tooplate.com/view/2099-scenic
 
                <div class="col-md-offset-2 col-md-8 col-sm-12">
                     <!-- CONTACT FORM HERE -->
-                    <form id="contact-form" action="#" method="get" role="form">
+                    <form id="contact-form" action="#" method="get" role="form" onsubmit="return ajaxPost()">
 
                          <!-- IF MAIL SENT SUCCESSFULLY -->
                          <h6 class="text-success">Your message has been sent successfully. </h6>
@@ -324,6 +348,7 @@ http://www.tooplate.com/view/2099-scenic
           </div>
      </div>
 </section>
+
 
 <!-- FOOTER -->
 <footer style="background-color: lightgray;">
@@ -360,6 +385,8 @@ http://www.tooplate.com/view/2099-scenic
           </div>
      </div>
 </footer>
+
+
 
 <!-- SCRIPTS -->
 <script src="/views/js/jquery.js"></script>

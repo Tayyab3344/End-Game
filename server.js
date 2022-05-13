@@ -61,6 +61,10 @@ try{
     console.log(users)
 })
 
+app.get('/blog',checkNotAuthenticated,(req,res)=>{
+    res.render('blog.ejs')
+});
+
 app.delete('/logout',(req,res)=>{
     req.logOut()
     res.redirect('/login')
@@ -70,9 +74,7 @@ function checkAuthenticated(req, res, next){
         return next()
     }   
     res.redirect('/login')
-
 }
-
 function checkNotAuthenticated(req, res, next){
     if(req.isAuthenticated()){
       return res.redirect('/')

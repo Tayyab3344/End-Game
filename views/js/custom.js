@@ -29,6 +29,7 @@
           $('#project').parallax("80%", 60);
           $('#team').parallax("40%", 40);
           $('#contact').parallax("20%", 20);
+        //  $('#login').parallax("20%", 20);
           }
         initParallax();
 
@@ -47,3 +48,4 @@
         });
 
 })(jQuery);
+
