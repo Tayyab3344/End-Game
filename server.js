@@ -2,12 +2,23 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
  }
 const express = require('express')
-//const res = require('express/lib/response')
 const app = express()
 const passport = require('passport')
 const bcrypt = require('bcrypt')
 const flash = require('express-flash')
 const session = require('express-session')
+
+// New
+require('./passport-config')(passport);
+  
+app.use(require('serve-static')(__dirname + '/../../public'));
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// end
 
 app.use("/views",express.static(__dirname + "/views"))
 const methodOverride = require('method-override')
@@ -15,8 +26,8 @@ const methodOverride = require('method-override')
 const initializePassport = require('./passport-config')
 initializePassport(
     passport, 
-    email => users.find(user => user.email === email),
-    id => users.find(user => user.id === id))
+    email => users.mysignup(user => user.email === email),
+    id => users.mysignup(user => user.id === id))
 
 const users=[]
 
@@ -31,29 +42,55 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 
+
+// -- DataBase Work
+const mongoose=require('mongoose');
+const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const MySignup=require("C:/Users/ILYAS/Desktop/Web-Project/End-Game/Model/schema.js")  
+mongoose.connect(url)
+.then((result)=>console.log('connected to db'))
+.catch((err)=>console.log(err))
+
+// -- End --
+
 app.get('/', checkAuthenticated, (req,res)=>{
     res.render('MainScreen.ejs')
 })
 app.get('/Login',checkNotAuthenticated, (req,res)=>{
     res.render('login.ejs')
 })
-app.post('/login',checkNotAuthenticated, passport.authenticate('local',{
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-}))
+
+app.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+      successRedirect: '/',
+       failureRedirect: '/login',
+      failureFlash: true
+    })(req, res, next);
+  });
+
 app.get('/register',checkNotAuthenticated,(req,res)=>{
     res.render('register.ejs')
 })
 app.post('/register',checkNotAuthenticated,async (req,res)=>{
 try{
     const hashedPassword = await bcrypt.hash(req.body.password,10)
-    users.push({
+   
+
+    // -- DataBase 
+    const mysignup=new MySignup({
         id: Date.now().toString(),
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword,
-    })
+       });
+       mysignup.save()
+       .then((result)=>{res.send(result)})
+       .catch((err)=>{
+         console.log(err)
+       });
+       // -- End 
+
+
     res.redirect('/login')
 }catch{
     res.redirect('/register')
@@ -80,4 +117,4 @@ function checkNotAuthenticated(req, res, next){
     next()
 
 }
-app.listen(3000)
+app.listen(8090)
