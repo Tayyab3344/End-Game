@@ -263,6 +263,7 @@ a:hover, a:active, a:focus {
   margin-bottom: 0;
   background-color: #4dc47d;
   padding: 20px 0;
+  
 }
 
 .custom-navbar .navbar-brand {
@@ -280,6 +281,7 @@ a:hover, a:active, a:focus {
   transition: all ease-in-out 0.4s;
   padding: 0;
   margin: 15px 20px;
+  
   text-transform: uppercase;
 }
 
@@ -315,6 +317,7 @@ a:hover, a:active, a:focus {
 .custom-navbar .navbar-toggle {
   border: none;
   padding-top: 10px;
+  
 }
 
 .custom-navbar .navbar-toggle {
@@ -324,6 +327,7 @@ a:hover, a:active, a:focus {
 .custom-navbar .navbar-toggle .icon-bar {
   background: #ffffff;
   border-color: transparent;
+  
 }
 
 @media(min-width:768px) {
@@ -450,15 +454,17 @@ a:hover, a:active, a:focus {
   overflow: hidden;
   position: relative;
   margin-bottom: 25px;
-  padding: 0;
+  padding: 3rem,2rem;
+  transition: 0.2s linear;
   vertical-align: middle;
+  border-radius: 2.5rem;
   text-align: center;
 }
 
 .project-overlay {
   background: rgba(0,0,0,0.5);
   position: absolute;
-  width: 100%;
+  width: 85%;
   height: 100%;
   top: 0;
   right: 0;
@@ -470,12 +476,13 @@ a:hover, a:active, a:focus {
 }
 
 .project-info {
-  padding: 12em 0;
+  padding: 8em 0;
 }
 
 .project-item img {
   -webkit-transition: all ease-in-out 0.4s;
   transition: all ease-in-out 0.4s;
+  height: 30rem;
 }
 .project-item:hover img {
   transform: scale(1.1);
@@ -487,8 +494,8 @@ a:hover, a:active, a:focus {
 }
 .project-overlay h3 {
   color: #d9d9d9;
-  font-size: 14px;
-  letter-spacing: 0.2px;
+  font-size: 12px;
+  letter-spacing: 0.1px;
   margin-top: 0;
 }
 

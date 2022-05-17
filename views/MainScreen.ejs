@@ -31,8 +31,11 @@ http://www.tooplate.com/view/2099-scenic
 <link rel="stylesheet" href="views/css/tooplate-style.css">
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
-<!-- Chat BOx code-->
+<!-- Recaptcha Link -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!-- End Link -->
 
+<!--Chat Box-->
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -47,10 +50,7 @@ http://www.tooplate.com/view/2099-scenic
      </script>
      <!--End of Tawk.to Script-->
 
-<!--Recaptura-->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-
+  
 </head>
 <body>
 
@@ -66,7 +66,7 @@ http://www.tooplate.com/view/2099-scenic
                     <span class="icon icon-bar"></span>
                </button>
                <!-- lOGO -->
-               <a href="views/MainScreen.ejs" class="navbar-brand"><img src="views/images/TB.png" width="100px" height="100px"></a>
+               <a href="/views/MainScreen.ejs" class="navbar-brand"><img src="views/images/TB.png" width="100px"  height="100px"></a>
           </div>
 
           <!-- MENU LINKS -->
@@ -77,7 +77,8 @@ http://www.tooplate.com/view/2099-scenic
                     <li><a href="#about" class="smoothScroll">Write Blogs</a></li>
                     <li><a href="#team" class="smoothScroll">About Us</a></li>  
                     <li><a href="#contact" class="smoothScroll">Contact Us</a></li>
-                    <li><a href="/views/login.ejs" class="smoothScroll">Login Now</a></li>
+                    <li><a href="/Login" class="smoothScroll">Login Now</a></li>
+                    
                </ul>
           </div>
      </div>
@@ -121,7 +122,7 @@ http://www.tooplate.com/view/2099-scenic
                <div class="col-md-6 col-sm-6">
                     <!-- PROJECT I TEM -->
                     <div class="project-item">
-                         <a href="/views/blog.ejs" >
+                         <a href="/blogs" >
                               <img src="/views/images/imac.png" class="img-responsive" alt="" style="border-radius: 2px;">
                               <h1><b>I-MAC</b></h1>
                               <div class="project-overlay">
@@ -137,9 +138,9 @@ http://www.tooplate.com/view/2099-scenic
                <div class="col-md-6 col-sm-6">
                     <!-- PROJECT ITEM -->
                     <div class="project-item">
-                         <a href="/views/blog.ejs" target="_blank">
+                         <a href="/views/blogs.ejs" target="_blank">
                               <img src="/views/images/motherboards.png" class="img-responsive" alt="">
-                              <h1><b>Gaming Motherboard</b></h1>
+                              <h1><b>Gaming board</b></h1>
                               <div class="project-overlay">
                                    <div class="project-info">
                                         <h1><b>Gaming Motherboard</b></h1>
@@ -153,7 +154,7 @@ http://www.tooplate.com/view/2099-scenic
                <div class="col-md-6 col-sm-6">
                     <!-- PROJECT ITEM -->
                     <div class="project-item">
-                         <a href="blog.ejs" target="_blank">
+                         <a href="/views/blogs.ejs" target="_blank">
                               <img src="/views/images/Gaming-PC.png" class="img-responsive" alt="">
                               <h1><b>Gaming PC</b></h1>
                               <div class="project-overlay">
@@ -169,7 +170,7 @@ http://www.tooplate.com/view/2099-scenic
                <div class="col-md-6 col-sm-6">
                     <!-- PROJECT ITEM -->
                     <div class="project-item">
-                         <a href="blog.ejs" target="_blank">
+                         <a href="/users/blog.ejs" target="_blank">
                               <img src="/views/images/speakers.png" class="img-responsive" alt="">
                               <h1><b>Speaker</b></h1>
                               <div class="project-overlay">
@@ -198,6 +199,7 @@ http://www.tooplate.com/view/2099-scenic
                     </div>
                </div>
 
+
                <div class="clearfix"></div>
 
                <div class="col-md-offset-2 col-md-8 col-sm-12">
@@ -218,10 +220,11 @@ http://www.tooplate.com/view/2099-scenic
                               <textarea class="form-control" rows="5" id="cf-message" name="cf-message" placeholder="Write Your Blog Here"></textarea>
                               <input type = "file" name="p_image" accept ="image/png, image/jpg, image/jpeg" class = "form-control" required>
                          </div>
-
+                         <!-- Recptacha -->
                          <div class = "g-recaptcha" data-sitekey ="6Ld8euMfAAAAAEPXBTbjKgL4dbx3pgznOPzvhA99">
 
                          </div>
+                         <!-- End Recaptcha -->
                          <div class="col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4">
                               <div class="section-btn">
                                    <button type="submit" class="form-control" id="cf-submit" name="submit"><span data-hover="Publish Blog">Publish Blog</span></button>
@@ -398,6 +401,7 @@ http://www.tooplate.com/view/2099-scenic
 <script src="/views/js/modernizr.custom.js"></script>
 <script src="/views/js/smoothscroll.js"></script>
 <script src="/views/js/custom.js"></script>
+<script src="/views/js/main.js"></script>
 
 </body>
 </html>

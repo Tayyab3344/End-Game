@@ -1,5 +1,7 @@
 <html>
 <head>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <style>
         body {
     font-size: 16px;
@@ -53,15 +55,23 @@ input[type="submit"] {
     margin-top: 10px;
     cursor: pointer;
 }
+.img{
+    text-align:center;
+}
  
     </style>
 </head>
 <body>
 <form name="contactForm" onsubmit="login"  method="post">
     <h2 >Register</h2>
+
+    <div class = img>
+        <img src="views/images/TB.png" width="100px" style="border-radius: 70%;" height="100px"></a>
+        </div>
+
     <div class="row">
-        <label>User Name</label>
-        <input type="text" id="name" name="name" placeholder="Ali" maxlength="10" required>
+        <label>Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Username " maxlength="10" required>
     </div>
     <div class="row">
         <label>Email address</label>
@@ -69,15 +79,22 @@ input[type="submit"] {
     </div>
     <div class="row">
         <label>Password</label>
-        <input type="password" id="password" name="password" placeholder="abcd@123" maxlength="20" required>
+        <input type="password" id="password" name="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="abcd@123" maxlength="20" required>
     </div>
+    <div 
+    class = "g-recaptcha" data-sitekey ="6Ld8euMfAAAAAEPXBTbjKgL4dbx3pgznOPzvhA99" >
+    </div>
+
     <div class="row">
-        <input type="submit" onclick="login" value="Submit">
+        <input type="submit" onclick="login.ejs" value="Submit">
     </div>
     <div class = "row">
         <p >Already have account?</p>
         <a href="login">Login</a>     
     </div>
+    
 </form>
+  
+
 </body>
 </html>
