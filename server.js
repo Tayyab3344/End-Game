@@ -10,7 +10,7 @@ const session = require('express-session')
 
 
 // New
-require('./passport-config')(passport);
+require('./views/configuration/passport-config')(passport);
   
 app.use(require('serve-static')(__dirname + '/../../public'));
 app.use(require('cookie-parser')());
@@ -23,7 +23,7 @@ app.use(passport.session());
 app.use("/views",express.static(__dirname + "/views"))
 const methodOverride = require('method-override')
 
-const initializePassport = require('./passport-config')
+const initializePassport = require('./views/configuration/passport-config')
 initializePassport(
     passport, 
     email => users.mysignup(user => user.email === email),
@@ -45,7 +45,7 @@ app.use(methodOverride('_method'))
 // -- DataBase Work
 const mongoose=require('mongoose');
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-const MySignup=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
+const MySignup=require("C:/Users/ILYAS/Desktop/Web-Project/End-Game/Model/schema.js")  
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -66,6 +66,14 @@ app.post('/login', (req, res, next) => {
       failureFlash: true
     })(req, res, next);
   });
+
+  app.get('/forgot',checkNotAuthenticated,(req,res)=>{
+    res.render('forgot.ejs');
+  });
+
+  app.post('/forgot',checkNotAuthenticated,(req,res)=>{
+    res.render('forgot.ejs')
+})
 
   app.get('/blogs',checkNotAuthenticated,(req,res)=>{
     res.render('blogs.ejs');

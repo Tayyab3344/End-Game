@@ -19,5 +19,8 @@ res.render('register'));
 router.get('/blogs',checkNotAuthenticated,(req,res)=>
 res.render('blogs'));
 
+router.get('/forgot',checkNotAuthenticated,(req,res)=>
+res.render('forgot'));
+
 
 
