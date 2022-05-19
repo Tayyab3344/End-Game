@@ -31,7 +31,7 @@ initializePassport(
 
 const users=[]
 
-app.set('view-engine','ejs')
+app.set('view engine','ejs')
 app.use(express.urlencoded({extended: false}))
 app.use(flash())
 app.use(session({
@@ -55,8 +55,8 @@ mongoose.connect(url)
 app.get('/', checkAuthenticated, (req,res)=>{
     res.render('MainScreen.ejs')
 })
-app.get('/Login',checkNotAuthenticated, (req,res)=>{
-    res.render('login.ejs')
+app.get('/Login', (req,res)=>{
+    res.render('login')
 })
 
 app.post('/login', (req, res, next) => {
@@ -77,10 +77,35 @@ app.post('/login', (req, res, next) => {
 
   app.get('/blogs',checkNotAuthenticated,(req,res)=>{
     res.render('blogs.ejs');
+
+//
+  app.get('/MainScreen',checkNotAuthenticated,(req,res)=>{
+    res.render('MainScreen.ejs');
 });
-app.post('/blogs',checkNotAuthenticated,(req,res)=>{
-    res.render('blogs.ejs')
+app.post('/Dashboard',checkNotAuthenticated,async (req,res)=>{
+    const AddBlogs = new AddBlogs({
+        Name: req.body.Name,
+        URL: req.body.URL,
+        subject: req.body.subject,
+        message: req.body.message,
+        PicImage: req.body.PicImage,
+       });
+       AddBlogs.save()
+       .then((result)=>{res.send(result)})
+       .catch((err)=>{
+         console.log(err)
+       });
 })
+
+
+//
+  app.get('/Blogs',checkAuthenticated,(req,res)=>{
+    res.render('blogs');
+});
+
+app.post('/Blogs',checkNotAuthenticated,(req,res)=>{
+    res.render('blogs');
+});
 
 app.get('/register',checkNotAuthenticated,(req,res)=>{
     res.render('register.ejs')
