@@ -89,11 +89,11 @@ app.post('/Dashboard',checkNotAuthenticated,async (req,res)=>{
 
 
 //
-  app.get('/Blogs',checkNotAuthenticated,(req,res)=>{
+  app.get('/Blogs',checkAuthenticated,(req,res)=>{
     res.render('blogs');
 });
 
-app.get('/Blogs',checkNotAuthenticated,(req,res)=>{
+app.post('/Blogs',checkNotAuthenticated,(req,res)=>{
     res.render('blogs');
 });
 
