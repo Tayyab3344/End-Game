@@ -43,7 +43,7 @@
           <div class="collapse navbar-collapse">
                <ul class="nav navbar-nav navbar-right">
                     <li><a href="#home" class="smoothScroll">Home</a></li>
-                    <li><a href="#project" class="smoothScroll">Read Blog</a></li>
+                    <li><a href="#project" class="smoothScroll">Profile</a></li>
                </ul>
           </div>
 
@@ -82,34 +82,40 @@
          <div class="row">
             <div class="col-md-6 col-sm-6">
                    <img src="views/images/Tayyab.png" width="400px" height="400px">
+                   <br><br>
+                   <input type="file" name="PicImage" accept ="image/png, image/jpg, image/jpeg" class = "form-control">
             </div>
             <div class="col-md-6 col-sm-6">
                 <div style="text-align: left;">
                     <label style="text-align: left; font-size: 20px;">Name:</label>
                     <br>
-                    <input type="text">
+                    <input type="text" name="Name" placeholder="Tayyab Shahid" style="width: 500px; height: 40px;">
                     <br><br>
                     <label style="text-align: left; font-size: 20px;">Gender:</label>
                     <br>
-                    <input type="text">
+                    <input type="radio" name="gender" id="male">
+                    <label for="male" style="font-size:20px ;">Male</label>
+                    <br>
+                    <input type="radio" name="gender" id="female">
+                    <label for="female" style="font-size:20px ;">Female</label>
+                    <br>
+                    <input type="radio" name="gender" id="other">
+                    <label for="other" style="font-size:20px ;">Other</label>
                     <br><br>
                     <label style="text-align: left; font-size: 20px;">E-Mail:</label>
                     <br>
-                    <input type="text">
+                    <input type="email" name="E-Mail" placeholder="XYZ@gmail.com" style="width: 500px; height: 40px;">
                     <br><br>
                     <label style="text-align: left; font-size: 20px;">Phone Number:</label>
                     <br>
-                    <input type="text">
+                    <input type="number" name="Number" placeholder="03XX-XXXXXXX" style="width: 500px; height: 40px;">
                     <br><br>
                     <label style="text-align: left; font-size: 20px;">Address:</label>
                     <br>
-                    <input type="text">
+                    <input type="text" name="Name" placeholder="House #, Street #, Block #, City" style="width: 500px; height: 40px;">
                     <br><br>
-                    <label style="text-align: left; font-size: 20px;">Birth Date:</label>
-                    <br>
-                    <input type="text">
                     <ul class="section-btn">
-                        <a href="https://www.apple.com/imac-24/" class="smoothScroll"><span data-hover="Buy Product">Buy Product</span></a>
+                        <a href="#" class="smoothScroll"><span data-hover="Update">Update</span></a>
                      </ul>
                 </div>
             </div>
