@@ -29,6 +29,15 @@ initializePassport(
   email => users.mysignup(user => user.email === email),
   id => users.mysignup(user => user.id === id))
 
+  const InitializePassport = require('./passport-config')
+  InitializePassport(
+    passport, 
+    EMail => users.addprofiles(user => user.E<ail === EMail),
+    FullName=> users.addprofiles(user => user.FullName === FullName),
+    Address=> users.addprofiles(user => user.Address === Address),
+    Number=> users.addprofiles(user => user.Number === Number),
+    ProfileImage=> users.addprofiles(user => user.ProfileImage === ProfileImage));
+
 const users=[]
 
 app.set('view engine','ejs')
@@ -45,7 +54,9 @@ app.use(methodOverride('_method'))
 // -- DataBase Work
 const mongoose=require('mongoose');
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-const MySignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
+const addprofiles=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
+
+const mysignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -100,6 +111,14 @@ app.get('/profile',checkAuthenticated,(req,res)=>{
 });
 
 app.post('/profile',checkNotAuthenticated,(req,res)=>{
+  const addprofile = new AddProfile({
+    Name: req.body.Name,
+    EMail: req.body.EMail,
+    Number: req.body.Number,
+    Address: req.body.Address,
+    ProfileImage: req.body.ProfileImage
+  });
+addprofile.save();
   res.render('profile');
 });
 

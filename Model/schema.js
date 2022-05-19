@@ -24,8 +24,29 @@ const addblogSchema=new Schema({
         contentType: String 
     }   
 });
+const AddProfile=new Schema({
+    Name:{
+        type: String
+    },
+    EMail:{
+        type: String
+    },
+    Number:{
+        type: String
+    },
+    Address:{
+        type: String
+    },
+    ProfileImage:{
+        data: Buffer,
+        contentType: String 
+    }   
+});
+
 const AddBlogs = mongoose.model('AddBlogs',addblogSchema)
 module.exports= AddBlogs;
+const Addprofile = mongoose.model('Addprofile',AddProfile)
+module.exports= Addprofile;
 const  MySignup=mongoose.model('MySignup',pSchema)
 module.exports= MySignup;
 
