@@ -1,6 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy
 const bcrypt = require('bcrypt')
-const User=require("C:/Users/ILYAS/Desktop/Web-Project/End-Game/Model/schema.js")  
+const User=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
 
 
 module.exports = function(passport) {
