@@ -5,6 +5,7 @@ const express = require('express')
 const app = express()
 const passport = require('passport')
 const bcrypt = require('bcrypt')
+const mongoose=require('mongoose')
 const flash = require('express-flash')
 const session = require('express-session')
 
@@ -29,7 +30,7 @@ initializePassport(
     email => users.mysignup(user => user.email === email),
     id => users.mysignup(user => user.id === id))
 
-const users=[]
+//const users=[]
 
 app.set('view engine','ejs')
 app.use(express.urlencoded({extended: false}))
@@ -43,9 +44,8 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 // -- DataBase Work
-const mongoose=require('mongoose');
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-const MySignup=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
+require("D:/WebEngineeringProject/End-Game-1/Model/schema.js");
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -68,35 +68,44 @@ app.post('/login', (req, res, next) => {
   });
 
 
-//
-  app.get('/MainScreen',checkNotAuthenticated,(req,res)=>{
-    res.render('MainScreen.ejs');
+
+  app.get('/Mainscreen',checkNotAuthenticated,(req,res)=>{
+    res.render('MainScreen');
 });
-app.post('/Dashboard',checkNotAuthenticated,async (req,res)=>{
-    const AddBlogs = new AddBlogs({
-        Name: req.body.Name,
-        URL: req.body.URL,
-        subject: req.body.subject,
-        message: req.body.message,
-        PicImage: req.body.PicImage,
-       });
-       AddBlogs.save()
-       .then((result)=>{res.send(result)})
-       .catch((err)=>{
-         console.log(err)
-       });
-})
+app.post('/Mainscreen',checkNotAuthenticated,async (req,res)=>{
+  
+    try{       
+        // -- DataBase 
+        const AddBlogs=new AddBlogs({
+            id: Date.now().toString(),
+            blog_name: req.body.blog_name,
+            blog_URL: req.body.blog_URL,
+            blog_subject: req.body.blog_subject,
+            blog_message: req.body.blog_message,
+            blog_Image: req.body.blog_Image
+           });
+           AddBlogs.save()
+           .then((result)=>{res.send(result)})
+           .catch((err)=>{
+             console.log(err)
+           });
+           // -- End 
+        res.redirect('/Mainscreen')
+    }catch{
+        res.redirect('/register')
+    }
+        console.log(users)
+    });
 
-
-//
-  app.get('/Blogs',checkAuthenticated,(req,res)=>{
+app.get('/Blogs',checkNotAuthenticated,(req,res)=>{
     res.render('blogs');
 });
-
 app.post('/Blogs',checkNotAuthenticated,(req,res)=>{
     res.render('blogs');
 });
-
+app.post('/display',checkNotAuthenticated,(req,res)=>{
+    res.render('Display');
+});
 app.get('/register',checkNotAuthenticated,(req,res)=>{
     res.render('register.ejs')
 })
@@ -139,6 +148,21 @@ function checkNotAuthenticated(req, res, next){
       return res.redirect('/')
     }
     next()
-
+}
+function insertRecord(req,res){
+    var blog = new blog();
+    blog.blog_name = req.body.blog_name;
+    blog.blog_URL = req.body.blog_URL;
+    blog_subject = req.body.blog_subject;
+    blog_message = req.body.blog_message;
+    blog_Image = req.body.blog_Image;
+    blog.save((err,doc) => {
+        if(!err){
+            res.redirect('/Login');
+        }
+        else{
+            console.log('Error during record: '+ err);
+        }
+    });
 }
 app.listen(3000)

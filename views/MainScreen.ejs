@@ -49,7 +49,58 @@ http://www.tooplate.com/view/2099-scenic
      })();
      </script>
      <!--End of Tawk.to Script-->
-
+     
+     <!--Start of Pie Chart-->
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+     <script type="text/javascript">
+       google.charts.load('current', {'packages':['corechart']});
+       google.charts.setOnLoadCallback(drawChart);
+ 
+       function drawChart() {
+ 
+         var data = google.visualization.arrayToDataTable([
+           ['Task', 'Hours per Day'],
+           ['Smart phones Blogs',     11],
+           ['Travel Blogs',      2],
+           ['Music Blogs',  2],
+           ['Books and Writing Blogs', 2],
+           ['Movie Blogs',    7]
+         ]);
+ 
+         var options = {
+           title: 'Per-day Blogs'
+         };
+ 
+         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+ 
+         chart.draw(data, options);
+       }
+     </script>
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+     <script type="text/javascript">
+       google.charts.load("current", {packages:["corechart"]});
+       google.charts.setOnLoadCallback(drawChart);
+       function drawChart() {
+         var data = google.visualization.arrayToDataTable([
+           ['Dinosaur', 'Length'],
+           ['Travel Blogs',      4],
+           ['Music Blogs',  2],
+           ['Smart phones Blogs',     11],
+           ['Books and Writing Blogs', 5],
+           ['Movie Blogs',    7] 
+          ]);
+ 
+         var options = {
+           title: 'Per-day Blogs',
+           legend: { position: 'none' },
+         };
+ 
+         var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+         chart.draw(data, options);
+       }
+     </script>
+     <!--End of Pie Chart
+     Start of Histogram-->
   
 </head>
 <body>
@@ -110,7 +161,6 @@ http://www.tooplate.com/view/2099-scenic
           Your browser does not support the video tag.
      </video>
 </section>
-
 
 
 <!-- PROJECT -->
@@ -179,8 +229,11 @@ http://www.tooplate.com/view/2099-scenic
                                         <h3>Click to Open Details!</h3>
                                    </div>
                               </div>
-                         </a>
+                         </a>                         
                     </div>
+                    <div class="row">
+                         <a href="/display"> View all </a>     
+                      </div>
                </div>              
           </div>
      </div>
@@ -191,9 +244,14 @@ http://www.tooplate.com/view/2099-scenic
 <section id="about" class="parallax-section">
      <div class="container">
           <div class="row">
-
+               <div id="piechart" class="PieChart" ></div>
+               <div id="chart_div" class="HistogramChart"></div>
                <div class="col-md-offset-3 col-md-6 col-sm-12">
+                    
+                    
                     <div class="section-title">
+                        
+                  
                          <h1>Write Blogs</h1>
                     </div>
                </div>
@@ -202,37 +260,34 @@ http://www.tooplate.com/view/2099-scenic
                <div class="clearfix"></div>
 
                <div class="col-md-offset-2 col-md-8 col-sm-12">
-                    <!-- CONTACT FORM HERE -->
-                    <form id="contact-form" method="get" role="form">
+                    <!-- Add Blogs FORM HERE -->
+                    
+                    <form id="contact-form" action="/Mainscreen" method="POST" role="form">
 
                          <div class="col-md-6 col-sm-6">
-                              <input type="text" class="form-control" id="cf-name" name="Name" placeholder="Name">
+                              <input type="text" class="form-control" id="cf-name" name="blog_name" placeholder="Name">
                          </div>
 
                          <div class="col-md-6 col-sm-6">
-                              <input type="url" class="form-control" id="cf-name" name="URL" placeholder="URL of Product">
+                              <input type="url" class="form-control" id="cf-name" name="blog_URL" placeholder="URL of Product">
                          </div>
 
                          <div class="col-md-12 col-sm-12">
-                              <input type="email" class="form-control" id="cf-email" name="emailAddress" placeholder="E-Mail">
-                              <input type="text" class="form-control" id="cf-subject" name="subject" placeholder="Subject for Blog" required>
-                              <textarea class="form-control" rows="5" id="cf-message" name="message" placeholder="Write Your Blog Here"></textarea>
-                              <input type = "file" name="PicImage" accept ="image/png, image/jpg, image/jpeg" class = "form-control" required>
+                              <input type="email" class="form-control" name="blog_email" placeholder="E-Mail">
+                              <input type="text" class="form-control" name="blog_subject" placeholder="Subject for Blog" required>
+                              <textarea class="form-control" rows="5" name="blog_message" placeholder="Write Your Blog Here"></textarea>
+                              <input type = "file" name="blog_Image" accept ="image/png, image/jpg, image/jpeg" class = "form-control" required>
                          </div>
                          <!-- Recptacha -->
-                         <div class = "g-recaptcha" data-sitekey ="6Ld8euMfAAAAAEPXBTbjKgL4dbx3pgznOPzvhA99">
-
-                         </div>
+                         <div class = "g-recaptcha" data-sitekey ="6Ld8euMfAAAAAEPXBTbjKgL4dbx3pgznOPzvhA99"></div>
                          <!-- End Recaptcha -->
                          <div class="col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4">
                               <div class="section-btn">
                                    <button type="submit" class="form-control" id="cf-submit" name="submit"><span data-hover="Publish Blog">Publish Blog</span></button>
                               </div>
-               
+                         </div>
                     </form>
                </div>
-
-          </div>
      </div>
 </section>
 
@@ -255,13 +310,15 @@ http://www.tooplate.com/view/2099-scenic
                     <div class="col-md-4 col-sm-4 item">
                          <div class="team-item">
                               <img src="/views/images/Tayyab.png" class="img-responsive" alt="">
-                              <div class="team-overlay">
+                              <!--
+                                   <div class="team-overlay">
                                    <ul class="social-icon">
                                         <li><a href="#" class="fa fa-facebook"></a></li>
                                         <li><a href="#" class="fa fa-instagram"></a></li>
                                         <li><a href="#" class="fa fa-twitter"></a></li>
                                    </ul>
                               </div>
+                         -->
                          </div>
                          <p>Tayyab Shahid</p>
                          <h3>19F-0911</h3>
@@ -270,13 +327,6 @@ http://www.tooplate.com/view/2099-scenic
                     <div class="col-md-4 col-sm-4 item">
                          <div class="team-item">
                               <img src="/views/images/Shayan.png" class="img-responsive" alt="">
-                              <div class="team-overlay">
-                                   <ul class="social-icon">
-                                        <li><a href="#" class="fa fa-facebook"></a></li>
-                                        <li><a href="#" class="fa fa-instagram"></a></li>
-                                        <li><a href="#" class="fa fa-twitter"></a></li>
-                                   </ul>
-                              </div>
                          </div>
                          <p>Shayan Ilyas</p>
                          <h3>19F-0976</h3>
@@ -285,13 +335,6 @@ http://www.tooplate.com/view/2099-scenic
                     <div class="col-md-4 col-sm-4 item">
                          <div class="team-item">
                               <img src="/views/images/sunny.jpg" class="img-responsive" alt="">
-                              <div class="team-overlay">
-                                   <ul class="social-icon">
-                                        <li><a href="#" class="fa fa-facebook"></a></li>
-                                        <li><a href="#" class="fa fa-instagram"></a></li>
-                                        <li><a href="#" class="fa fa-twitter"></a></li>
-                                   </ul>
-                              </div>
                          </div>
                          <p>Suneel Pirkash</p>
                          <h3>19F-0969</h3>
@@ -318,7 +361,7 @@ http://www.tooplate.com/view/2099-scenic
 
                <div class="col-md-offset-2 col-md-8 col-sm-12">
                     <!-- CONTACT FORM HERE -->
-                    <form id="contact-form" action="#" method="get" role="form" onsubmit="return ajaxPost()">
+                    <form id="contact-form" action="#" method="get" role="form" onsubmit="return ajaxPost()" autocomplete="off">
 
                          <!-- IF MAIL SENT SUCCESSFULLY -->
                          <h6 class="text-success">Your message has been sent successfully. </h6>
@@ -376,19 +419,24 @@ http://www.tooplate.com/view/2099-scenic
                		
                     <h2><b>About Us</b></h2>
                     <p><b>19F-0911____Tayyab Shahid<br>19F-0976____Shayan Ilyas<br>19F-0969____Suneel Pirkash</b></p>
-                    <ul class="social-icon">
-                         <li><a href="#" class="fa fa-twitter"></a></li>
-                         <li><a href="#" class="fa-facebook"></a></li>
-                         <li><a href="#" class="fa fa-instagram"></a></li>
-                         <li><a href="#" class="fa fa-linkedin"></a></li>
-                    </ul>
-                    
                </div>
           </div>
      </div>
 </footer>
-
-
+<!--
+<script>
+  $(document).ready(function(){
+    $("g-recaptcha").on('submit',function(event){
+      var recaptcha = $("#g-recaptcha-response").val();
+      if (recaptcha===""){
+        event.preventDefault();
+        alert("Please check Recaptcha");
+      }
+      event.preventDefault();
+    })
+  })
+</script>
+-->
 
 <!-- SCRIPTS -->
 <script src="/views/js/jquery.js"></script>
