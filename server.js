@@ -54,7 +54,8 @@ app.use(methodOverride('_method'))
 
 // -- DataBase Work
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-require("D:\WebEngineeringProject\End-Game-1\Model\schema.js");
+const addprofiles=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
+const mysignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -127,14 +128,14 @@ app.get('/profile',checkAuthenticated,(req,res)=>{
 });
 
 app.post('/profile',checkNotAuthenticated,(req,res)=>{
-  const addprofile = new AddProfile({
+  const Addprofile = new AddProfile({
     Name: req.body.Name,
     EMail: req.body.EMail,
     Number: req.body.Number,
     Address: req.body.Address,
     ProfileImage: req.body.ProfileImage
   });
-addprofile.save();
+Addprofile.save();
   res.render('profile');
 });
 app.post('/display',checkNotAuthenticated,(req,res)=>{

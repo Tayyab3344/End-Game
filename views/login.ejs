@@ -96,6 +96,25 @@ input[type="submit"] {
         <input type="submit" value="Dashboard" onclick="Dashboard.ejs">
     </div>    
 </form>
+<script>
+    $(document).ready(function(){
+        $(".recaptchaForm").on('submit',function(event){
+            var recaptcha = $ ("#g-recaptcha-response").val();
 
+            if(recaptcha===""){
+                event.preventDefault();
+                alert("Please Check Recaptra");
+            }
+            event.preventDefault();
+            $.post("login.ejs",{
+                "secret":"6LfCBi8gAAAAAOkReRbbd6M8bcpl28z5UlGt3_GH",
+                "response": recaptcha
+
+            },function(response){
+                concole.log(response);
+            });
+        })
+    })
+</script>
 </body>
 </html>
