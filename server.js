@@ -62,6 +62,17 @@ mongoose.connect(url)
 
 // -- End --
 
+//------------ Global variables ------------//
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+
+//------------ Importing Controllers ------------//
+const controller = require('C:/Users/ILYAS/Desktop/Web-Project/End-Game/Controller/controller.js')
+
 app.get('/', checkAuthenticated, (req,res)=>{
   res.render('MainScreen.ejs')
 })
@@ -77,10 +88,8 @@ app.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-
-//
-app.get('/MainScreen',checkNotAuthenticated,(req,res)=>{
-  res.render('MainScreen.ejs');
+  app.get('/MainScreen',checkNotAuthenticated,(req,res)=>{
+    res.render('MainScreen.ejs');
 });
 app.post('/Dashboard',checkNotAuthenticated,async (req,res)=>{
   const AddBlogs = new AddBlogs({
@@ -152,6 +161,25 @@ app.delete('/logout',(req,res)=>{
   req.logOut()
   res.redirect('/login')
 })
+
+//------------ Forgot Password Route ------------//
+app.get('/forgot', (req, res) => res.render('forgot.ejs'));
+
+//------------ Forgot Password Handle ------------//
+app.post('/forgot', controller.forgotPassword);
+
+//------------ Reset Password Handle ------------//
+app.get('/forgot/:token', controller.gotoReset);
+
+//------------ Reset Password Route ------------//
+app.get('/reset/:id', (req, res) => {
+  res.render('reset.ejs', { id: req.params.id })
+});
+
+//------------ Reset Password Handle ------------//
+app.post('/reset/:id', controller.resetPassword);
+
+
 function checkAuthenticated(req, res, next){
   if(req.isAuthenticated()){
       return next()

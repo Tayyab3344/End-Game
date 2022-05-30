@@ -1,99 +1,23 @@
-<html>
-<head>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-
-    <style>
-        body {
-    font-size: 16px;
-    background: #463f3f;
-    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-}
-h2 {
-    text-align: center;
-    text-decoration: underline;
-}
-form {
-    width: 301;
-    background: rgb(216, 197, 197);
-    padding: 15px 40px 40px;
-    border: 1px solid #ccc;
-    margin: 50px auto 0;
-    border-radius: 5px;
-}
-label {
-    display: block;
-    margin-bottom: 5px
-}
-label i {
-    color: rgb(233, 48, 48);
-    font-size: 90%;
-}
-input, select {
-    border: 1px solid #ccc;
-    padding: 10px;
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 2px;
-}
-.row {
-    padding-bottom: 10px;
-}
-.form-inline label, .form-inline input {
-    display: inline-block;
-    width: auto;
-    padding-right: 15px;
-}
-
-input[type="submit"] {
-    font-size: 110%;
-    font-weight: 100;
-    background: #006dcc;
-    border-color: #016BC1;
-    box-shadow: 0 3px 0 #0165b6;
-    color: #fff;
-    margin-top: 10px;
-    cursor: pointer;
-}
-.img{
-    text-align:center;
-}
-    </style>
-</head>
-<body> 
-<form name="contactForm" action ="/forgot" method="POST">
-    <div class = img>
-        <img src="views/images/TB.png" width="100px" style="border-radius: 70%;" height="100px"></a>
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+        <div class="card card-body text-center">
+            <h1 class="mb-3">
+                <img src="/assets/secure-icon.png" alt="icon" width="20%" />
+            </h1>
+            <h2>
+                Forgot Password
+            </h2>
+            
+            <form action="/forgot" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Send me a password reset link</button>
+            </form>
+            <p class="mt-4">
+                Remember your password? <a href="/login">Login</a>
+            </p>
         </div>
-    <h2 >Reset Password</h2>
-    
-    <div class="row">
-        <label>Old Password</label>
-        <input type="password" name="password"  maxlength="40" required>
     </div>
-    <div class="row">
-        <label>New Password</label>
-        <input type="password" id="myInput" name="password" placeholder="abcd@123"  maxlength="20"  required> <br>
-    </div>
-    <div class="row">
-        <label>Confirm Password</label>
-        <input type="password" id="myInput" name="password" maxlength="20"  required> <br>
-    </div>
-    
-    <!-- <div 
-    class = "g-recaptcha" data-sitekey ="6Ld8euMfAAAAAEPXBTbjKgL4dbx3pgznOPzvhA99" >
-    </div> -->
-
-    <div class = "row">
-        <a href="register">
-        <p >Don't have account?</p>
-        </a>     
-    </div>
-    <div class="row">
-        <input type="submit" value="Dashboard" onclick="Dashboard.ejs">
-    </div>    
-</form>
-
-</body>
-</html>
+</div>

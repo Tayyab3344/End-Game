@@ -2,23 +2,19 @@ const mongoose =require('mongoose')
 const Schema=mongoose.Schema
 
 const pSchema=new Schema({
-    fname:String,
+    name:String,
     email:String,
     password:String    
 });
 const addblogSchema=new Schema({
-    Name:{
-        type: String
-    },
-    URL:{
-        type: String
-    },
-    subject:{
-        type: String
-    },
-    message:{
-        type: String
-    },
+    Name: String,
+    
+    URL: String,
+
+    subject: String,
+    
+    message: String,
+    
     PicImage:{
         data: Buffer,
         contentType: String 
