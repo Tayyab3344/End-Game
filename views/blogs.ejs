@@ -72,8 +72,8 @@
      </div>
 
      <!-- Video -->
-     <video >
-         <!-- <source src="/views/videos/video.mp4" type="video/mp4">-->
+     <video controls autoplay loop muted>
+          <source src="/views/videos/video.mp4" type="video/mp4">
           Your browser does not support the video tag.
      </video>
 </section>
@@ -86,7 +86,7 @@
                 <img src="/views/images/imac.png" width="50%" height="50%">
             </div>
              <h3>James Williams</h3>
-             <h1><b>I-MAC 24</b></h1>
+             <h1 style="color:#4CAF50 ;"><b>I-MAC 24</b></h1>
              <p>You’ve never seena computer like this before.</p>
              <p>Say hello to the new iMac.Inspired by the best of Apple. Transformed by the M1 chip. Stands out in any space. Fits perfectly into your life.</p>
              <p>Order April 30th.4.30 | Available second half of May.</p>
@@ -102,7 +102,63 @@
              </ul>
          </div>
     </div>
-    <br /><br /><br /><br /><br /><br />
+    <br /><br /><br />
+    <hr style="height:2px;border-width:10;color:gray;background-color:gray; width: 80%;">
+    <br /><br /><br />
+    <div class="container">
+         <div class="row">
+          <h1 style="color:#4CAF50 ;"><b>Reviews</b></h1>
+          <h3 style="text-align: left; padding-left:150px ;">
+               <b style="padding-left: 50px;">
+                    <h8 id="like" ></h8>
+                    <a onclick="Increment()"></a><b style="padding-left:10px ;color:#4CAF50 ;">LIKE</b>
+               </b>
+               <b style="padding-left: 50px;">
+                    <h8 id="dislike" ></h8>
+                    <a onclick="DIncrement()"></a><b style="padding-left:10px ;color:#4CAF50 ;">DIS-LIKE</b>
+               </b>
+          </h3>
+          <h3 style="padding-left:30px ;">James Williams</h3>
+          <p style="padding-left:50px ;">I use Blogger for a variety of purposes, including curating a local news website. The platform allows me to easily upload news items. 
+               I use Blogger to provide SEO support for my online store and for some marketing support. Blogger is very good at creating easy.</p>
+          <h5 style="text-align: right; padding-right:50px ;">
+               <b style="padding-right: 50px;">
+                    <h8 id="like" ></h8>
+                    <a onclick="Increment()"><b style="padding-left:10px ;">Like</b></a>
+               </b>
+               <b style="padding-right: 50px;">
+                    <h8 id="dislike" ></h8>
+                    <a onclick="DIncrement()"><b style="padding-left:10px ;">DisLike</b></a>
+               </b>
+          </h5>
+          <h3 style="padding-left:30px ;">Jon Snow</h3>
+          <p style="padding-left:50px ;">We use Weebly for one of our websites, so it's currently used exclusively by our marketing team. It's an easy-to-use solution to quickly build a website, and it makes it super easy to add pages, change content, etc. without requiring a developer. It has easy navigation, a simple drag and drop interface, and sufficient widget options.</p>
+          <h5 style="text-align: right; padding-right:50px ;">
+               <b style="padding-right: 50px;">
+                    <h8 id="like" ></h8>
+                    <a onclick="Increment()"><b style="padding-left:10px ;">Like</b></a>
+               </b>
+               <b style="padding-right: 50px;">
+                    <h8 id="dislike" ></h8>
+                    <a onclick="DIncrement()"><b style="padding-left:10px ;">DisLike</b></a>
+               </b>
+          </h5>
+          <h3 style="padding-left:30px ;">Johnny Depp</h3>
+          <p style="padding-left:50px ;">We have used Weebly to create and manage our website since we started our company in 2006. We manage our website in-house
+               We use Weebly as our website designing platform. We needed an easy-to-use, drag-and-drop option to rebuild our website.</p>
+          <h5 style="text-align: right; padding-right:50px ;">
+               <b style="padding-right: 50px;">
+                    <h8 id="like" ></h8>
+                    <a onclick="Increment()"><b style="padding-left:10px ;">Like</b></a>
+               </b>
+               <b style="padding-right: 50px;">
+                    <h8 id="dislike" ></h8>
+                    <a onclick="DIncrement()"><b style="padding-left:10px ;">DisLike</b></a>
+               </b>
+          </h5>
+         </div>
+    </div>
+    <br /><br /><br />
 </section>
 
 <!-- FOOTER -->
@@ -153,5 +209,21 @@
 <script src="/views/js/main.js"></script>
 <script src="/views/js/custom.js"></script>
 </form>
+
+
+<script>
+     var data=0;
+     var data1=0;
+     document.getElementById("like").innerText=data;
+     function Increment(){
+          data=data+1;
+          document.getElementById("like").innerText=data;
+     }
+     document.getElementById("dislike").innerText=data1;
+     function DIncrement(){
+          data1=data1+1;
+          document.getElementById("dislike").innerText=data1;
+     }
+</script>
 </body>
 </html>

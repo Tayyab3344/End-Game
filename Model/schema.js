@@ -25,7 +25,7 @@ const addblogSchema=new Schema({
     }   
 });
 const AddProfile=new Schema({
-    Name:{
+    FullName:{
         type: String
     },
     EMail:{
@@ -45,8 +45,8 @@ const AddProfile=new Schema({
 
 const AddBlogs = mongoose.model('AddBlogs',addblogSchema)
 module.exports= AddBlogs;
-const Addprofile = mongoose.model('Addprofile',AddProfile)
-module.exports= Addprofile;
+const addprofiles = mongoose.model('addprofiles',AddProfile)
+module.exports= addprofiles;
 const  MySignup=mongoose.model('MySignup',pSchema)
 module.exports= MySignup;
 
