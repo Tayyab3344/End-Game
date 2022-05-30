@@ -2,7 +2,7 @@ const mongoose =require('mongoose')
 const Schema=mongoose.Schema
 
 const pSchema=new Schema({
-    fname:String,
+    name:String,
     email:String,
     password:String     
 });
