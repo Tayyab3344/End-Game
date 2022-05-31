@@ -71,7 +71,7 @@ app.use(function(req, res, next) {
 });
 
 //------------ Importing Controllers ------------//
-const controller = require('C:/Users/ILYAS/Desktop/Web-Project/End-Game/Controller/controller.js')
+const controller = require('C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Controller/controller.js')
 
 app.get('/', checkAuthenticated, (req,res)=>{
   res.render('MainScreen.ejs')
