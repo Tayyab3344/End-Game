@@ -5,8 +5,10 @@ const express = require('express')
 const app = express()
 const passport = require('passport')
 const bcrypt = require('bcrypt')
+const mongoose=require('mongoose')
 const flash = require('express-flash')
 const session = require('express-session')
+const blogs = require('./Model/schema')
 
 
 // New
@@ -52,10 +54,10 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 // -- DataBase Work
-const mongoose=require('mongoose');
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-const addprofiles=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
-const mysignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
+// const addprofiles=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
+ const mysignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")
+const AddBlogs=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -73,8 +75,9 @@ app.use(function(req, res, next) {
 //------------ Importing Controllers ------------//
 const controller = require('C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Controller/controller.js')
 
+//const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller.js')
 app.get('/', checkAuthenticated, (req,res)=>{
-  res.render('MainScreen.ejs')
+  res.render('MainScreen')
 })
 app.get('/Login', (req,res)=>{
   res.render('login')
@@ -88,28 +91,33 @@ app.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-  app.get('/MainScreen',checkNotAuthenticated,(req,res)=>{
-    res.render('MainScreen.ejs');
-});
-app.post('/Dashboard',checkNotAuthenticated,async (req,res)=>{
-  const AddBlogs = new AddBlogs({
-      Name: req.body.Name,
-      URL: req.body.URL,
-      subject: req.body.subject,
-      message: req.body.message,
-      PicImage: req.body.PicImage,
-     });
-     AddBlogs.save()
-     .then((result)=>{res.send(result)})
-     .catch((err)=>{
-       console.log(err)
-     });
-})
 
-app.get('/Blogs',checkAuthenticated,(req,res)=>{
-  res.render('blogs');
+  app.get('/Mainscreen',checkNotAuthenticated,(req,res)=>{
+    res.render('MainScreen');
+});
+app.post('/Mainscreen',async (req,res)=>{
+  let addBlogs = new AddBlogs({
+  blog_name: req.body.blog_name,
+  blog_URL: req.body.blog_URL,
+  blog_subject: req.body.blog_subject,
+  blog_message: req.body.blog_message
+  });
+
+  addBlogs.save(function(err) {
+    if (err) {
+      return res
+        .status(400)
+        .json({ err: "Oops something went wrong! Cannont insert student.." });
+    }
+    req.flash("student_add_success_msg", "New student added successfully");
+    
+    res.redirect('/Mainscreen');
+  });
 });
 
+app.get('/Blogs',(req,res)=>{
+    res.render('blogs');
+});
 app.post('/Blogs',checkNotAuthenticated,(req,res)=>{
   res.render('blogs');
 });
@@ -119,7 +127,7 @@ app.get('/profile',checkAuthenticated,(req,res)=>{
 });
 
 app.post('/profile',checkNotAuthenticated,(req,res)=>{
-  const Addprofile = new AddProfile({
+  const Addprofile = new Addprofile({
     Name: req.body.Name,
     EMail: req.body.EMail,
     Number: req.body.Number,
@@ -129,7 +137,9 @@ app.post('/profile',checkNotAuthenticated,(req,res)=>{
 Addprofile.save();
   res.render('profile');
 });
-
+app.post('/display',checkNotAuthenticated,(req,res)=>{
+    res.render('Display');
+});
 app.get('/register',checkNotAuthenticated,(req,res)=>{
   res.render('register.ejs')
 })
@@ -187,10 +197,10 @@ function checkAuthenticated(req, res, next){
   res.redirect('/login')
 }
 function checkNotAuthenticated(req, res, next){
-  if(req.isAuthenticated()){
-    return res.redirect('/')
-  }
-  next()
-
+    if(req.isAuthenticated()){
+      return res.redirect('/')
+    }
+    next()
 }
+
 app.listen(3000)

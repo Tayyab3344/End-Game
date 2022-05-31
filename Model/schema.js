@@ -4,45 +4,15 @@ const Schema=mongoose.Schema
 const pSchema=new Schema({
     name:String,
     email:String,
-    password:String    
+    password:String     
 });
 const addblogSchema=new Schema({
-    Name: String,
-    
-    URL: String,
-
-    subject: String,
-    
-    message: String,
-    
-    PicImage:{
-        data: Buffer,
-        contentType: String 
-    }   
+    blog_name: String,
+    blog_URL: String,
+    blog_subject: String,
+    blog_message: String
 });
-const AddProfile=new Schema({
-    FullName:{
-        type: String
-    },
-    EMail:{
-        type: String
-    },
-    Number:{
-        type: String
-    },
-    Address:{
-        type: String
-    },
-    ProfileImage:{
-        data: Buffer,
-        contentType: String 
-    }   
-});
-
-const AddBlogs = mongoose.model('AddBlogs',addblogSchema)
-module.exports= AddBlogs;
-const addprofiles = mongoose.model('addprofiles',AddProfile)
-module.exports= addprofiles;
+module.exports= mongoose.model('AddBlogs',addblogSchema)
 const  MySignup=mongoose.model('MySignup',pSchema)
 module.exports= MySignup;
 
