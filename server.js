@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt')
 const mongoose=require('mongoose')
 const flash = require('express-flash')
 const session = require('express-session')
+const blogs = require('./Model/schema')
 
 
 // New
@@ -55,8 +56,8 @@ app.use(methodOverride('_method'))
 // -- DataBase Work
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 // const addprofiles=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
- const mysignup=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")
-const AddBlogs=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
+ const mysignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")
+const AddBlogs=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -72,9 +73,11 @@ app.use(function(req, res, next) {
 });
 
 //------------ Importing Controllers ------------//
-const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller.js')
+const controller = require('C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Controller/controller.js')
+
+//const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller.js')
 app.get('/', checkAuthenticated, (req,res)=>{
-  res.render('MainScreen.ejs')
+  res.render('MainScreen')
 })
 app.get('/Login', (req,res)=>{
   res.render('login')
@@ -92,31 +95,27 @@ app.post('/login', (req, res, next) => {
   app.get('/Mainscreen',checkNotAuthenticated,(req,res)=>{
     res.render('MainScreen');
 });
-app.post('/Mainscreen',checkNotAuthenticated,async (req,res)=>{
-    try{       
-        // -- DataBase 
-        const AddBlogs=new AddBlogs({
-            id: Date.now().toString(),
-            blog_name: req.body.blog_name,
-            blog_URL: req.body.blog_URL,
-            blog_subject: req.body.blog_subject,
-            blog_message: req.body.blog_message,
-            blog_Image: req.body.blog_Image
-           });
-           AddBlogs.save()
-           .then((result)=>{res.send(result)})
-           .catch((err)=>{
-             console.log(err)
-           });
-           // -- End 
-        res.redirect('/Mainscreen')
-    }catch{
-        res.redirect('/register')
-    }
-        console.log(users)
-    });
+app.post('/Mainscreen',async (req,res)=>{
+  let addBlogs = new AddBlogs({
+  blog_name: req.body.blog_name,
+  blog_URL: req.body.blog_URL,
+  blog_subject: req.body.blog_subject,
+  blog_message: req.body.blog_message
+  });
 
-app.get('/Blogs',checkNotAuthenticated,(req,res)=>{
+  addBlogs.save(function(err) {
+    if (err) {
+      return res
+        .status(400)
+        .json({ err: "Oops something went wrong! Cannont insert student.." });
+    }
+    req.flash("student_add_success_msg", "New student added successfully");
+    
+    res.redirect('/Mainscreen');
+  });
+});
+
+app.get('/Blogs',(req,res)=>{
     res.render('blogs');
 });
 app.post('/Blogs',checkNotAuthenticated,(req,res)=>{
