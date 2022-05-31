@@ -54,8 +54,9 @@ app.use(methodOverride('_method'))
 
 // -- DataBase Work
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-const addprofiles=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
-const mysignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
+// const addprofiles=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
+ const mysignup=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")
+const AddBlogs=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -71,8 +72,7 @@ app.use(function(req, res, next) {
 });
 
 //------------ Importing Controllers ------------//
-const controller = require('D:\WebEngineeringProject\End-Game-1\Controller\controller.js')
-
+const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller.js')
 app.get('/', checkAuthenticated, (req,res)=>{
   res.render('MainScreen.ejs')
 })
@@ -128,7 +128,7 @@ app.get('/profile',checkAuthenticated,(req,res)=>{
 });
 
 app.post('/profile',checkNotAuthenticated,(req,res)=>{
-  const Addprofile = new AddProfile({
+  const Addprofile = new Addprofile({
     Name: req.body.Name,
     EMail: req.body.EMail,
     Number: req.body.Number,
@@ -203,20 +203,5 @@ function checkNotAuthenticated(req, res, next){
     }
     next()
 }
-function insertRecord(req,res){
-    var blog = new blog();
-    blog.blog_name = req.body.blog_name;
-    blog.blog_URL = req.body.blog_URL;
-    blog_subject = req.body.blog_subject;
-    blog_message = req.body.blog_message;
-    blog_Image = req.body.blog_Image;
-    blog.save((err,doc) => {
-        if(!err){
-            res.redirect('/Login');
-        }
-        else{
-            console.log('Error during record: '+ err);
-        }
-    });
-}
+
 app.listen(3000)
