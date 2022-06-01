@@ -1,5 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt')
+
 const User=require("C:/Users/ILYAS/Desktop/Web-Project/End-Game/Model/schema.js")  
 
 

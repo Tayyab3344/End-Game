@@ -177,16 +177,19 @@
 
                <div class="col-md-offset-2 col-md-8 col-sm-12">
                     <!-- CONTACT FORM HERE -->
-                    <form id="contact-form" method="get" role="form">
+                    <form id="contact-form" action="/blogs" method="POST" role="form">
 
                          <div class="col-md-12 col-sm-12">
-                              <input type="text" class="form-control" id="cf-name" name="Name" placeholder="Name">
-                              <textarea class="form-control" rows="5" id="cf-message" name="message" placeholder="Write Your Review Here"></textarea>
+                              <input type="text" class="form-control" id="revi_name" name="revi_name" placeholder="Name">
+                              <textarea class="form-control" rows="5" id="revi_message" name="revi_message" placeholder="Write Your Review Here"></textarea>
                          </div>
                          
                          <div class="col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4">
                               <div class="section-btn">
                                    <button type="submit" class="form-control" id="cf-submit" name="submit"><span data-hover="Submit Review">Submit Review</span></button>
+                              </div>
+                              <div class="section-btn">
+                                   <button type="submit" class="smoothScroll" href="/views/profile.ejs"><span data-hover="Update">Update</span></button>
                               </div>
                          </div>
                     </form>
