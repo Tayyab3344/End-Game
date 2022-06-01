@@ -10,6 +10,7 @@ const flash = require('express-flash')
 const session = require('express-session')
 const blogs = require('./Model/AddblogSchema')
 const ProfilePerson = require('./Model/ProfileSchema')
+const ReviewAdded = require('./Model/ReviewSchema')
 //const multer = require('multer')
 
 
@@ -61,6 +62,7 @@ const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net
  const mysignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")
 const AddBlogs=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/AddblogSchema.js")
 const PRofile=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/ProfileSchema.js")
+const Review=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/ReviewSchema.js")
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -119,11 +121,26 @@ res.redirect('/Mainscreen')
 res.redirect('/Blogs')
 }})
 
-app.get('/Blogs',(req,res)=>{
+app.get('/Blogs',checkAuthenticated,(req,res)=>{
     res.render('blogs');
 });
-app.post('/Blogs',checkNotAuthenticated,(req,res)=>{
-  res.render('blogs');
+app.post('/Blogs',async(req,res)=>{
+  try{
+    let re = new Review({
+      revi_name: req.body.revi_name,
+      revi_message: req.body.revi_message,
+    });
+  console.log(re);
+  re.save()
+    .then((result)=>{res.send(result)})
+    .catch((err)=>{
+      console.log(err)
+    });
+    // -- End 
+    res.redirect('/Mainscreen')
+    }catch{
+    res.redirect('/Blogs')
+    }
 });
 
 app.get('/profile',checkAuthenticated,(req,res)=>{
@@ -150,6 +167,7 @@ app.post('/profile',async(req,res)=>{
   }
   
 });
+
 
 app.get('/display',async(req,res)=>{
   blogs.find(function(err, addblogs) {
@@ -239,4 +257,4 @@ function checkNotAuthenticated(req, res, next){
 // var upload = multer({
 //   storage:Storage
 // }).single('blog_image');
-app.listen(3000)
+app.listen(3000);
