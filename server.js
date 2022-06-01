@@ -9,7 +9,7 @@ const mongoose=require('mongoose')
 const flash = require('express-flash')
 const session = require('express-session')
 const blogs = require('./Model/AddblogSchema')
-const ProfilePerson = require('./Model/ProfileSchema')
+
 //const multer = require('multer')
 
 
@@ -104,9 +104,9 @@ app.post('/Mainscreen', async (req,res)=>{
   blog_email: req.body.blog_email,
   blog_subject: req.body.blog_subject,
   blog_message: req.body.blog_message,
-  //blog_image: req.body.blog_image
+  blog_image: req.body.blog_image
   });
-
+  console.log(addBlogs);
 addBlogs.save()
 .then((result)=>{res.send(result)})
 .catch((err)=>{
@@ -128,28 +128,18 @@ app.post('/Blogs',checkNotAuthenticated,(req,res)=>{
 app.get('/profile',checkAuthenticated,(req,res)=>{
   res.render('profile');
 });
-app.post('/profile',async(req,res)=>{
-  try{
-    let pro = new ProfilePerson({
-    profile_name: req.body.profile_name,
-    profile_email: req.body.profile_email,
-    profile_contact: req.body.profile_contact,
-    profile_address: req.body.profile_address
-    });
-    console.log(pro);
-  pro.save()
-  .then((result)=>{res.send(result)})
-  .catch((err)=>{
-    console.log(err)
-  });
-  // -- End 
-  res.redirect('/Mainscreen')
-  }catch{
-  res.redirect('/Blogs')
-  }
-  
-});
 
+// app.post('/profile',checkNotAuthenticated,(req,res)=>{
+//   const Addprofile = new Addprofile({
+//     Name: req.body.Name,
+//     EMail: req.body.EMail,
+//     Number: req.body.Number,
+//     Address: req.body.Address,
+//     ProfileImage: req.body.ProfileImage
+//   });
+// Addprofile.save();
+//   res.render('profile');
+// });
 app.get('/display',async(req,res)=>{
   blogs.find(function(err, addblogs) {
     if (err) {
