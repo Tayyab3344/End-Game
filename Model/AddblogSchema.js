@@ -22,10 +22,7 @@ const AddBlogs = new Schema({
     type: String,
     required: true
   },
-  blog_image: {
-    type: String,
-    required: true
-  },
+  
   date: {
     type: Date,
     default: Date.now

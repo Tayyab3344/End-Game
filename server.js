@@ -107,9 +107,9 @@ app.post('/Mainscreen', async (req,res)=>{
   blog_email: req.body.blog_email,
   blog_subject: req.body.blog_subject,
   blog_message: req.body.blog_message,
-  //blog_image: req.body.blog_image
+  blog_image: req.body.blog_image
   });
-
+  console.log(addBlogs);
 addBlogs.save()
 .then((result)=>{res.send(result)})
 .catch((err)=>{
@@ -257,4 +257,4 @@ function checkNotAuthenticated(req, res, next){
 // var upload = multer({
 //   storage:Storage
 // }).single('blog_image');
-app.listen(3000);
+app.listen(3010);
