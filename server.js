@@ -29,14 +29,14 @@ initializePassport(
   email => users.mysignup(user => user.email === email),
   id => users.mysignup(user => user.id === id))
 
-  const InitializePassport = require('./passport-config')
-  InitializePassport(
-    passport, 
-    EMail => users.addprofiles(user => user.E<ail === EMail),
-    FullName=> users.addprofiles(user => user.FullName === FullName),
-    Address=> users.addprofiles(user => user.Address === Address),
-    Number=> users.addprofiles(user => user.Number === Number),
-    ProfileImage=> users.addprofiles(user => user.ProfileImage === ProfileImage));
+  // const InitializePassport = require('./passport-config')
+  // InitializePassport(
+  //   passport, 
+  //   EMail => users.addprofiles(user => user.E<ail === EMail),
+  //   FullName=> users.addprofiles(user => user.FullName === FullName),
+  //   Address=> users.addprofiles(user => user.Address === Address),
+  //   Number=> users.addprofiles(user => user.Number === Number),
+  //   ProfileImage=> users.addprofiles(user => user.ProfileImage === ProfileImage));
 
 const users=[]
 
@@ -54,9 +54,9 @@ app.use(methodOverride('_method'))
 // -- DataBase Work
 const mongoose=require('mongoose');
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-const addprofiles=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
-
-const mysignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
+//const addprofiles=require("C:/Users/ILYAS/Desktop/Web-Project/End-Game/Model/schema.js")  
+const AddBlogs= require("C:/Users/ILYAS/Desktop/Web-Project/End-Game/Model/schema.js")
+const MySignup=require("C:/Users/ILYAS/Desktop/Web-Project/End-Game/Model/schema.js")  
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -92,20 +92,7 @@ app.post('/login', (req, res, next) => {
   app.get('/MainScreen',checkNotAuthenticated,(req,res)=>{
     res.render('MainScreen.ejs');
 });
-app.post('/Dashboard',checkNotAuthenticated,async (req,res)=>{
-  const AddBlogs = new AddBlogs({
-      Name: req.body.Name,
-      URL: req.body.URL,
-      subject: req.body.subject,
-      message: req.body.message,
-      PicImage: req.body.PicImage,
-     });
-     AddBlogs.save()
-     .then((result)=>{res.send(result)})
-     .catch((err)=>{
-       console.log(err)
-     });
-})
+
 
 app.get('/Blogs',checkAuthenticated,(req,res)=>{
   res.render('blogs');
@@ -115,21 +102,21 @@ app.post('/Blogs',checkNotAuthenticated,(req,res)=>{
   res.render('blogs');
 });
 
-app.get('/profile',checkAuthenticated,(req,res)=>{
-  res.render('profile');
-});
+// app.get('/profile',checkAuthenticated,(req,res)=>{
+//   res.render('profile');
+// });
 
-app.post('/profile',checkNotAuthenticated,(req,res)=>{
-  const addprofile = new AddProfile({
-    Name: req.body.Name,
-    EMail: req.body.EMail,
-    Number: req.body.Number,
-    Address: req.body.Address,
-    ProfileImage: req.body.ProfileImage
-  });
-addprofile.save();
-  res.render('profile');
-});
+// app.post('/profile',checkNotAuthenticated,(req,res)=>{
+//   const addprofile = new AddProfile({
+//     Name: req.body.Name,
+//     EMail: req.body.EMail,
+//     Number: req.body.Number,
+//     Address: req.body.Address,
+//     ProfileImage: req.body.ProfileImage
+//   });
+// addprofile.save();
+//   res.render('profile');
+// });
 
 app.get('/register',checkNotAuthenticated,(req,res)=>{
   res.render('register.ejs')
@@ -155,12 +142,35 @@ try{
 }catch{
   res.redirect('/register')
 }
-  console.log(users)
+ 
 })
 
 app.delete('/logout',(req,res)=>{
   req.logOut()
   res.redirect('/login')
+})
+
+app.post('/',checkNotAuthenticated,async (req,res)=>{try{
+  const addblogs = new  AddBlogs({
+      Name: req.body.Name,
+      URL: req.body.URL,
+      subject: req.body.subject,
+      message: req.body.message,
+     
+     });
+     addblogs.save()
+     .then((result)=>{res.send(result)})
+     .catch((err)=>{
+       console.log(err)
+       console.log("data not saved")
+     })
+     res.redirect('/')
+     console.log("DONE")
+    }catch{
+      res.redirect('/')
+      console.log("TRY NOT WORK")
+    }
+      
 })
 
 //------------ Forgot Password Route ------------//
