@@ -8,7 +8,9 @@ const bcrypt = require('bcrypt')
 const mongoose=require('mongoose')
 const flash = require('express-flash')
 const session = require('express-session')
-const blogs = require('./Model/schema')
+const blogs = require('./Model/AddblogSchema')
+const ProfilePerson = require('./Model/ProfileSchema')
+//const multer = require('multer')
 
 
 // New
@@ -31,14 +33,14 @@ initializePassport(
   email => users.mysignup(user => user.email === email),
   id => users.mysignup(user => user.id === id))
 
-  const InitializePassport = require('./passport-config')
-  InitializePassport(
-    passport, 
-    EMail => users.addprofiles(user => user.E<ail === EMail),
-    FullName=> users.addprofiles(user => user.FullName === FullName),
-    Address=> users.addprofiles(user => user.Address === Address),
-    Number=> users.addprofiles(user => user.Number === Number),
-    ProfileImage=> users.addprofiles(user => user.ProfileImage === ProfileImage));
+  // const InitializePassport = require('./passport-config')
+  // InitializePassport(
+  //   passport, 
+  //   EMail => users.addprofiles(user => user.Email === EMail),
+  //   FullName=> users.addprofiles(user => user.FullName === FullName),
+  //   Address=> users.addprofiles(user => user.Address === Address),
+  //   Number=> users.addprofiles(user => user.Number === Number),
+  //   ProfileImage=> users.addprofiles(user => user.ProfileImage === ProfileImage));
 
 const users=[]
 
@@ -56,8 +58,8 @@ app.use(methodOverride('_method'))
 // -- DataBase Work
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 // const addprofiles=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
- const mysignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")
-const AddBlogs=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")  
+ const mysignup=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")
+const AddBlogs=require("D:/WebEngineeringProject/End-Game-1/Model/AddblogSchema")  
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -73,7 +75,7 @@ app.use(function(req, res, next) {
 });
 
 //------------ Importing Controllers ------------//
-const controller = require('C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Controller/controller.js')
+const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller.js')
 
 //const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller.js')
 app.get('/', checkAuthenticated, (req,res)=>{
@@ -89,31 +91,32 @@ app.post('/login', (req, res, next) => {
     failureRedirect: '/login',
     failureFlash: true
   })(req, res, next);
-});
+ });
 
-
-  app.get('/Mainscreen',checkNotAuthenticated,(req,res)=>{
+   app.get('/Mainscreen',checkNotAuthenticated,(req,res)=>{
     res.render('MainScreen');
-});
-app.post('/Mainscreen',async (req,res)=>{
+ });
+app.post('/Mainscreen', async (req,res)=>{
+  try{
   let addBlogs = new AddBlogs({
   blog_name: req.body.blog_name,
-  blog_URL: req.body.blog_URL,
+  blog_url: req.body.blog_url,
+  blog_email: req.body.blog_email,
   blog_subject: req.body.blog_subject,
-  blog_message: req.body.blog_message
+  blog_message: req.body.blog_message,
+  //blog_image: req.body.blog_image
   });
 
-  addBlogs.save(function(err) {
-    if (err) {
-      return res
-        .status(400)
-        .json({ err: "Oops something went wrong! Cannont insert student.." });
-    }
-    req.flash("student_add_success_msg", "New student added successfully");
-    
-    res.redirect('/Mainscreen');
-  });
+addBlogs.save()
+.then((result)=>{res.send(result)})
+.catch((err)=>{
+  console.log(err)
 });
+// -- End 
+res.redirect('/Mainscreen')
+}catch{
+res.redirect('/Blogs')
+}})
 
 app.get('/Blogs',(req,res)=>{
     res.render('blogs');
@@ -125,17 +128,41 @@ app.post('/Blogs',checkNotAuthenticated,(req,res)=>{
 app.get('/profile',checkAuthenticated,(req,res)=>{
   res.render('profile');
 });
-
-app.post('/profile',checkNotAuthenticated,(req,res)=>{
-  const Addprofile = new Addprofile({
-    Name: req.body.Name,
-    EMail: req.body.EMail,
-    Number: req.body.Number,
-    Address: req.body.Address,
-    ProfileImage: req.body.ProfileImage
+app.post('/profile',async(req,res)=>{
+  try{
+    let pro = new ProfilePerson({
+    profile_name: req.body.profile_name,
+    profile_email: req.body.profile_email,
+    profile_contact: req.body.profile_contact,
+    profile_address: req.body.profile_address
+    });
+    console.log(pro);
+  pro.save()
+  .then((result)=>{res.send(result)})
+  .catch((err)=>{
+    console.log(err)
   });
-Addprofile.save();
-  res.render('profile');
+  // -- End 
+  res.redirect('/Mainscreen')
+  }catch{
+  res.redirect('/Blogs')
+  }
+  
+});
+
+app.get('/display',async(req,res)=>{
+  blogs.find(function(err, addblogs) {
+    if (err) {
+      console.log(err);
+      }
+      else{
+        res.status(200).render('Display')
+        console.log(addblogs)
+      }
+    
+   // res.status(200).render('Display') 
+    //res.send(students);
+  })
 });
 app.post('/display',checkNotAuthenticated,(req,res)=>{
     res.render('Display');
@@ -201,6 +228,14 @@ function checkNotAuthenticated(req, res, next){
       return res.redirect('/')
     }
     next()
-}
-
+ }
+// var Storage = multer.diskStorage({
+//   destination:"./views",
+//   filename:(req,file,cb)=>{
+//     cb(null,file,fieldname)
+//   }
+// })
+// var upload = multer({
+//   storage:Storage
+// }).single('blog_image');
 app.listen(3000)
