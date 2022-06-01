@@ -58,8 +58,9 @@ app.use(methodOverride('_method'))
 // -- DataBase Work
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 // const addprofiles=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
- const mysignup=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")
-const AddBlogs=require("D:/WebEngineeringProject/End-Game-1/Model/AddblogSchema")  
+ const mysignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")
+const AddBlogs=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/AddblogSchema.js")
+const PRofile=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/ProfileSchema.js")
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -75,7 +76,7 @@ app.use(function(req, res, next) {
 });
 
 //------------ Importing Controllers ------------//
-const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller.js')
+const controller = require('C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Controller/controller.js')
 
 //const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller.js')
 app.get('/', checkAuthenticated, (req,res)=>{
@@ -130,13 +131,13 @@ app.get('/profile',checkAuthenticated,(req,res)=>{
 });
 app.post('/profile',async(req,res)=>{
   try{
-    let pro = new ProfilePerson({
+    let pro = new PRofile({
     profile_name: req.body.profile_name,
     profile_email: req.body.profile_email,
     profile_contact: req.body.profile_contact,
-    profile_address: req.body.profile_address
+    profile_address: req.body.profile_address,
     });
-    console.log(pro);
+  console.log(pro);
   pro.save()
   .then((result)=>{res.send(result)})
   .catch((err)=>{
