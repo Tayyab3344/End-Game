@@ -85,7 +85,7 @@
                    <br><br><br>
                    <input type="file" name="ProfileImage" accept ="image/png, image/jpg, image/jpeg" class = "form-control" style="width: 400px; height: 40px;">
             </div>
-
+            <form id="contact-form" action="/profile" method="POST" role="form">
 
             <div class="col-md-6 col-sm-6">
                 <div style="text-align: left;">
@@ -119,6 +119,12 @@
                     <ul class="section-btn">
                        <a href="#" class="smoothScroll"><span data-hover="Update">Update</span></a>
                      </ul>
+                     <div class="section-btn">
+                         <button type="submit" class="smoothScroll" href="/views/profile.ejs"><span data-hover="Update">Update</span></button>
+                    </div>
+                    <div class="section-btn">
+                         <button type="submit" class="form-control" id="cf-submit" name="submit"><span data-hover="Publish Blog">Publish Blog</span></button>
+                    </div>
                 </div>
             
                </div>

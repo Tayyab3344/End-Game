@@ -59,7 +59,8 @@ app.use(methodOverride('_method'))
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 // const addprofiles=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
  const mysignup=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")
-const AddBlogs=require("D:/WebEngineeringProject/End-Game-1/Model/AddblogSchema")  
+const AddBlogs=require("D:/WebEngineeringProject/End-Game-1/Model/AddblogSchema")
+const PRofile=require("D:/WebEngineeringProject/End-Game-1/Model/ProfileSchema")
 mongoose.connect(url)
 .then((result)=>console.log('connected to db'))
 .catch((err)=>console.log(err))
@@ -75,7 +76,7 @@ app.use(function(req, res, next) {
 });
 
 //------------ Importing Controllers ------------//
-const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller.js')
+const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller')
 
 //const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller.js')
 app.get('/', checkAuthenticated, (req,res)=>{
@@ -128,18 +129,27 @@ app.post('/Blogs',checkNotAuthenticated,(req,res)=>{
 app.get('/profile',checkAuthenticated,(req,res)=>{
   res.render('profile');
 });
-
-// app.post('/profile',checkNotAuthenticated,(req,res)=>{
-//   const Addprofile = new Addprofile({
-//     Name: req.body.Name,
-//     EMail: req.body.EMail,
-//     Number: req.body.Number,
-//     Address: req.body.Address,
-//     ProfileImage: req.body.ProfileImage
-//   });
-// Addprofile.save();
-//   res.render('profile');
-// });
+app.post('/profile',async(req,res)=>{
+  try{
+    let pro = new PRofile({
+    profile_name: req.body.profile_name,
+    profile_email: req.body.profile_email,
+    profile_contact: req.body.profile_contact,
+    profile_address: req.body.profile_address,
+    });
+  console.log(pro);
+  pro.save()
+  .then((result)=>{res.send(result)})
+  .catch((err)=>{
+    console.log(err)
+  });
+  // -- End 
+  res.redirect('/Mainscreen')
+  }catch{
+  res.redirect('/Blogs')
+  }
+  
+});
 app.get('/display',async(req,res)=>{
   blogs.find(function(err, addblogs) {
     if (err) {
