@@ -61,7 +61,7 @@
                          <h1>TECH BLOGGERS</h1>
                          <p>Here You can read the Blogs related to the Current Technology.</p>
                          <ul class="section-btn">
-                              <a href="#project" class="smoothScroll"><span data-hover="Read Blog">Read Blog</span></a>
+                              <a href="#project" class="smoothScroll"><span data-hover="Profile">Profile</span></a>
                          </ul>
                     </div>
                </div>
@@ -85,11 +85,13 @@
                    <br><br><br>
                    <input type="file" name="ProfileImage" accept ="image/png, image/jpg, image/jpeg" class = "form-control" style="width: 400px; height: 40px;">
             </div>
+            <form id="contact-form" action="/profile" method="POST" role="form">
+
             <div class="col-md-6 col-sm-6">
                 <div style="text-align: left;">
                     <label style="text-align: left; font-size: 20px;">Name:</label>
                     <br>
-                    <input type="text" name="Name" placeholder="Tayyab Shahid" style="width: 500px; height: 40px;">
+                    <input type="text" id="profile_name" name="profile_name" placeholder="Tayyab Shahid" style="width: 500px; height: 40px;">
                     <br><br>
                     <label style="text-align: left; font-size: 20px;">Gender:</label>
                     <br>
@@ -104,22 +106,30 @@
                     <br><br>
                     <label style="text-align: left; font-size: 20px;">E-Mail:</label>
                     <br>
-                    <input type="email" name="EMail" placeholder="XYZ@gmail.com" style="width: 500px; height: 40px;">
+                    <input type="email" id="profile_email" name="profile_email" placeholder="XYZ@gmail.com" style="width: 500px; height: 40px;">
                     <br><br>
                     <label style="text-align: left; font-size: 20px;">Phone Number:</label>
                     <br>
-                    <input type="number" name="Number" placeholder="03XX-XXXXXXX" style="width: 500px; height: 40px;">
+                    <input type="number" id="profile_contact" name="profile_contact" placeholder="03XX-XXXXXXX" style="width: 500px; height: 40px;">
                     <br><br>
                     <label style="text-align: left; font-size: 20px;">Address:</label>
                     <br>
-                    <input type="text" name="Address" placeholder="House #, Street #, Block #, City" style="width: 500px; height: 40px;">
+                    <input type="text" id="profile_address" name="profile_address" placeholder="House #, Street #, Block #, City" style="width: 500px; height: 40px;">
                     <br><br>
                     <ul class="section-btn">
-                        <a href="#" class="smoothScroll"><span data-hover="Update">Update</span></a>
+                       <a href="#" class="smoothScroll"><span data-hover="Update">Update</span></a>
                      </ul>
+                     <div class="section-btn">
+                         <button type="submit" class="smoothScroll" href="/views/profile.ejs"><span data-hover="Update">Update</span></button>
+                    </div>
+                    <div class="section-btn">
+                         <button type="submit" class="form-control" id="cf-submit" name="submit"><span data-hover="Publish Blog">Publish Blog</span></button>
+                    </div>
                 </div>
-            </div>
-         </div>
+            
+               </div>
+         
+          </div>
     </div>
     <br /><br /><br /><br /><br /><br />
 </section>
