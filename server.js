@@ -37,6 +37,8 @@ initializePassport(
   // const InitializePassport = require('./passport-config')
   // InitializePassport(
   //   passport, 
+
+  //   EMail => users.addprofiles(user => user.E<ail === EMail),
   //   EMail => users.addprofiles(user => user.Email === EMail),
   //   FullName=> users.addprofiles(user => user.FullName === FullName),
   //   Address=> users.addprofiles(user => user.Address === Address),
@@ -58,6 +60,11 @@ app.use(methodOverride('_method'))
 
 // -- DataBase Work
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+
+//const addprofiles=require("C:/Users/ILYAS/Desktop/Web-Project/End-Game/Model/schema.js")  
+const AddBlogs= require("C:/Users/ILYAS/Desktop/Web-Project/End-Game/Model/schema.js")
+const MySignup=require("C:/Users/ILYAS/Desktop/Web-Project/End-Game/Model/schema.js")  
+
 // const addprofiles=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
  const mysignup=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/schema.js")
 const AddBlogs=require("C:/Users/Ocean Computers/Desktop/WEB Engineering/End-Game/Model/AddblogSchema.js")
@@ -210,12 +217,35 @@ try{
 }catch{
   res.redirect('/register')
 }
-  console.log(users)
+ 
 })
 
 app.delete('/logout',(req,res)=>{
   req.logOut()
   res.redirect('/login')
+})
+
+app.post('/',checkNotAuthenticated,async (req,res)=>{try{
+  const addblogs = new  AddBlogs({
+      Name: req.body.Name,
+      URL: req.body.URL,
+      subject: req.body.subject,
+      message: req.body.message,
+     
+     });
+     addblogs.save()
+     .then((result)=>{res.send(result)})
+     .catch((err)=>{
+       console.log(err)
+       console.log("data not saved")
+     })
+     res.redirect('/')
+     console.log("DONE")
+    }catch{
+      res.redirect('/')
+      console.log("TRY NOT WORK")
+    }
+      
 })
 
 //------------ Forgot Password Route ------------//
