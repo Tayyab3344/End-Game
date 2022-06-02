@@ -9,6 +9,7 @@ const mongoose=require('mongoose')
 const flash = require('express-flash')
 const session = require('express-session')
 const blogs = require('./Model/AddblogSchema')
+const ProfilePerson = require('./Model/ProfileSchema')
 
 //const multer = require('multer')
 
@@ -27,20 +28,20 @@ app.use(passport.session());
 app.use("/views",express.static(__dirname + "/views"))
 const methodOverride = require('method-override')
 
+// const movieSchema ={
+//   blog_name:String,
+//   blog_url:String,
+//   blog_email:String,
+//   blog_subject:String,
+//   blog_message:String
+// }
+
+
 const initializePassport = require('./passport-config')
 initializePassport(
   passport, 
   email => users.mysignup(user => user.email === email),
-  id => users.mysignup(user => user.id === id))
-
-  // const InitializePassport = require('./passport-config')
-  // InitializePassport(
-  //   passport, 
-  //   EMail => users.addprofiles(user => user.Email === EMail),
-  //   FullName=> users.addprofiles(user => user.FullName === FullName),
-  //   Address=> users.addprofiles(user => user.Address === Address),
-  //   Number=> users.addprofiles(user => user.Number === Number),
-  //   ProfileImage=> users.addprofiles(user => user.ProfileImage === ProfileImage));
+  id => users.mysignup(user => user.id === id));
 
 const users=[]
 
@@ -77,6 +78,7 @@ app.use(function(req, res, next) {
 
 //------------ Importing Controllers ------------//
 const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller')
+const controller1 = require('D:/WebEngineeringProject/End-Game-1/Controller/BlogsController')
 
 //const controller = require('D:/WebEngineeringProject/End-Game-1/Controller/controller.js')
 app.get('/', checkAuthenticated, (req,res)=>{
@@ -151,19 +153,14 @@ app.post('/profile',async(req,res)=>{
   
 });
 app.get('/display',async(req,res)=>{
-  blogs.find(function(err, addblogs) {
-    if (err) {
-      console.log(err);
-      }
-      else{
-        res.status(200).render('Display')
-        console.log(addblogs)
-      }
-    
-   // res.status(200).render('Display') 
-    //res.send(students);
+  //res.render('Display');
+  AddBlogs.find({},function(err,  blogs){
+res.render('display',{
+  moviesList:  blogs
+})
   })
 });
+
 app.post('/display',checkNotAuthenticated,(req,res)=>{
     res.render('Display');
 });
