@@ -10,7 +10,7 @@ const flash = require('express-flash')
 const session = require('express-session')
 const blogs = require('./Model/AddblogSchema')
 const ProfilePerson = require('./Model/ProfileSchema')
-
+const ReviewAdded = require('./Model/ReviewSchema')
 //const multer = require('multer')
 
 
@@ -28,20 +28,23 @@ app.use(passport.session());
 app.use("/views",express.static(__dirname + "/views"))
 const methodOverride = require('method-override')
 
-// const movieSchema ={
-//   blog_name:String,
-//   blog_url:String,
-//   blog_email:String,
-//   blog_subject:String,
-//   blog_message:String
-// }
-
 
 const initializePassport = require('./passport-config')
 initializePassport(
   passport, 
   email => users.mysignup(user => user.email === email),
-  id => users.mysignup(user => user.id === id));
+  id => users.mysignup(user => user.id === id))
+
+  // const InitializePassport = require('./passport-config')
+  // InitializePassport(
+  //   passport, 
+
+  //   EMail => users.addprofiles(user => user.E<ail === EMail),
+  //   EMail => users.addprofiles(user => user.Email === EMail),
+  //   FullName=> users.addprofiles(user => user.FullName === FullName),
+  //   Address=> users.addprofiles(user => user.Address === Address),
+  //   Number=> users.addprofiles(user => user.Number === Number),
+  //   ProfileImage=> users.addprofiles(user => user.ProfileImage === ProfileImage));
 
 const users=[]
 
@@ -58,12 +61,13 @@ app.use(methodOverride('_method'))
 
 // -- DataBase Work
 const url='mongodb+srv://TechBloggers:techbloggers123@cluster0.i1ic8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-// const addprofiles=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
- const mysignup=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")
-const AddBlogs=require("D:/WebEngineeringProject/End-Game-1/Model/AddblogSchema")
-const PRofile=require("D:/WebEngineeringProject/End-Game-1/Model/ProfileSchema")
+
+const AddBlogs= require("D:/WebEngineeringProject/End-Game-1/Model/AddblogSchema")
+const MySignup=require("D:/WebEngineeringProject/End-Game-1/Model/schema.js")  
+const PRofile=("D:/WebEngineeringProject/End-Game-1/Model/schema.js")
+const Review=require("D:/WebEngineeringProject/End-Game-1/Model/ReviewSchema")
 mongoose.connect(url)
-.then((result)=>console.log('connected to db'))
+.then((result)=>console.log('DataBase Connected'))
 .catch((err)=>console.log(err))
 
 // -- End --
@@ -72,7 +76,7 @@ mongoose.connect(url)
 app.use(function(req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
+  res.locals.error = req.flash('error');      
   next();
 });
 
@@ -121,11 +125,26 @@ res.redirect('/Mainscreen')
 res.redirect('/Blogs')
 }})
 
-app.get('/Blogs',(req,res)=>{
+app.get('/Blogs',checkAuthenticated,(req,res)=>{
     res.render('blogs');
 });
-app.post('/Blogs',checkNotAuthenticated,(req,res)=>{
-  res.render('blogs');
+app.post('/Blogs',async(req,res)=>{
+  try{
+    let re = new Review({
+      revi_name: req.body.revi_name,
+      revi_message: req.body.revi_message,
+    });
+  console.log(re);
+  re.save()
+    .then((result)=>{res.send(result)})
+    .catch((err)=>{
+      console.log(err)
+    });
+    // -- End 
+    res.redirect('/Mainscreen')
+    }catch{
+    res.redirect('/Blogs')
+    }
 });
 
 app.get('/profile',checkAuthenticated,(req,res)=>{
@@ -145,13 +164,13 @@ app.post('/profile',async(req,res)=>{
   .catch((err)=>{
     console.log(err)
   });
-  // -- End 
+  -- End 
   res.redirect('/Mainscreen')
   }catch{
   res.redirect('/Blogs')
   }
-  
-});
+})
+
 app.get('/display',async(req,res)=>{
   //res.render('Display');
   AddBlogs.find({},function(err,  blogs){
@@ -188,12 +207,34 @@ try{
 }catch{
   res.redirect('/register')
 }
-  console.log(users)
 })
 
 app.delete('/logout',(req,res)=>{
   req.logOut()
   res.redirect('/login')
+})
+
+app.post('/',checkNotAuthenticated,async (req,res)=>{try{
+  const addblogs = new  AddBlogs({
+      Name: req.body.Name,
+      URL: req.body.URL,
+      subject: req.body.subject,
+      message: req.body.message,
+     
+     });
+     addblogs.save()
+     .then((result)=>{res.send(result)})
+     .catch((err)=>{
+       console.log(err)
+       console.log("Data not saved")
+     })
+     res.redirect('/')
+     console.log("DONE")
+    }catch{
+      res.redirect('/')
+      console.log("TRY NOT WORK")
+    }
+      
 })
 
 //------------ Forgot Password Route ------------//
@@ -235,4 +276,4 @@ function checkNotAuthenticated(req, res, next){
 // var upload = multer({
 //   storage:Storage
 // }).single('blog_image');
-app.listen(3000)
+app.listen(3010);
